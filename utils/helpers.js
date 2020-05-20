@@ -3,11 +3,18 @@ import { View, StyleSheet, AsyncStorage } from 'react-native'
 
 export const ALL_DECKS_KEY = 'Flashcards:allDecks'
 
+export function clearStorage () {
+  AsyncStorage.clear()
+    .catch(e => console.log('problem clearing storage ', e))
+}
+
 // getDecks: return all of the decks along with their titles, questions, and answers.
 export function getDecks () {
+  // console.log(decks)
   return AsyncStorage.getItem(ALL_DECKS_KEY)
     .then(JSON.parse)
     .then((data) => {
+      console.log(data, 'sdfsdfioejf')
       return data
     })
     .catch((err) => console.warn('error getting desks: ', err))
@@ -24,10 +31,11 @@ export function getDeck(id) {
 // saveDeckTitle: take in a single title argument and add it to the decks.
 export function saveDeckTitle(title) {
   const deck = {
-    [title]: title
+    [title]: {
+      title
+    }
   }
-
-  return AsyncStorage.mergeItem(ALL_DECKS_KEY, deck)
+  return AsyncStorage.mergeItem(ALL_DECKS_KEY, JSON.stringify(deck))
     .catch((err) => console.warn('error adding new deck: ', err))
 }
 

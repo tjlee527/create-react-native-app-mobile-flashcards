@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native'
 // import reducer from './reducers'
 // import middleware from './middleware'
 import { _addStarterDecks } from './utils/_DATA'
+import NewDeck from './components/NewDeck'
 
 import DeckList from './components/DeckList'
 
@@ -28,7 +29,8 @@ class App extends Component {
     if (decks) {
       return (
         <View style={styles.container}>
-          <DeckList decks={decks}/>
+          {/* <DeckList decks={decks}/> */}
+          <NewDeck />
         </View>
       )
     }

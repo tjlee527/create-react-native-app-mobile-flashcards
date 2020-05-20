@@ -40,14 +40,25 @@ class DeckList extends Component {
   render() {
     const { decks } = this.props
     return (
-      <View>
+      <View style={styles.container}>
         {decks.map((deck) => (
-          <Deck key={deck.title} deck={deck}/>
+          <Deck style={styles.row} key={deck.title} deck={deck}/>
         ))}
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  row: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center'
+  }
+})
 
 // function mapDispatchToProps(dispatch) {
 //   return {
