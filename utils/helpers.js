@@ -1,17 +1,16 @@
 import React from 'react'
 import { View, StyleSheet, AsyncStorage } from 'react-native'
 
-const ALL_DECKS_KEY = 'Flashcards:allDecks'
+export const ALL_DECKS_KEY = 'Flashcards:allDecks'
 
 // getDecks: return all of the decks along with their titles, questions, and answers.
 export function getDecks () {
   return AsyncStorage.getItem(ALL_DECKS_KEY)
     .then(JSON.parse)
     .then((data) => {
-      console.log(data)
       return data
     })
-    .catch((err) => console.warn('error getting desks: ', err)
+    .catch((err) => console.warn('error getting desks: ', err))
 }
 
 // getDeck: take in a single id argument and return the deck associated with that id.
@@ -19,7 +18,7 @@ export function getDeck(id) {
   return AsyncStorage.getItem(ALL_DECKS_KEY)
     .then(JSON.parse)
     .then((data) => data[id])
-    .catch((err) => console.warn('error getting desks: ', err)
+    .catch((err) => console.warn('error getting desks: ', err))
 }
 
 // saveDeckTitle: take in a single title argument and add it to the decks.

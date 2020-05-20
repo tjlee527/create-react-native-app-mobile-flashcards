@@ -3,6 +3,7 @@ import { RECEIVE_DECKS, ADD_DECK, ADD_CARD } from '../actions'
 function decks ( state = {}, action) {
   switch(action.type) {
     case RECEIVE_DECKS :
+      console.log('yes')
       return {
         ...state,
         ...action.decks
@@ -22,9 +23,10 @@ function decks ( state = {}, action) {
           questions: state[action.title].questions.concat([action.card])
           }
         }
-      }
 
     default :
       return state
   }
 }
+
+export default decks
