@@ -8,7 +8,7 @@ import {
   Platform,
   TextInput
 } from 'react-native'
-import { saveDeckTitle, getDecks, clearStorage } from '../utils/helpers'
+import { saveDeckTitle, getDecks, clearStorage, addCardToDeck } from '../utils/helpers'
 
 function Button( { onPress, text }) {
   return (
@@ -22,38 +22,46 @@ function Button( { onPress, text }) {
 
 
 
-class NewDeck extends Component {
+class NewCard extends Component {
   state = {
-    text: ''
+    question: '',
+    answer: '',
   }
 
-  onChange = (text) => {
+  onChange = (text, type) => {
     this.setState({
-      text
+      [type]: text
     })
   }
 
   onSubmit = () => {
-    const title = this.state.text
-    // add new Deck
-    // getDecks(title)
-    // clearStorage()
-    saveDeckTitle(title)
-    // go home
+    console.log(this.state)
+    // getDecks()
+    const { title } = this.props
+    addCardToDeck(title, this.state)
   }
 
 
   render() {
+    const { question, answer } = this.state
+    const display = (question && answer) ? true : false
+
     return (
       <View style={{padding: 10}}>
-        <Text style={styles.heading}>Create A New Deck</Text>
+        <Text style={styles.heading}>Create A New Question</Text>
         <TextInput
           style={styles.newDeckForm}
-          placeholder="New Deck Title"
-          onChangeText={this.onChange}
-          defaultValue={this.state.text}
+          placeholder="Question"
+          onChangeText={(text) => this.onChange(text, 'question')}
+          defaultValue={this.state.question}
         />
-        <Button onPress={this.onSubmit}/>
+        <TextInput
+          style={styles.newDeckForm}
+          placeholder="Answer"
+          onChangeText={(text) => this.onChange(text, 'answer')}
+          defaultValue={this.state.answer}
+        />
+        {display && <Button onPress={this.onSubmit}/>}
       </View>
     )
   }
@@ -106,4 +114,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default NewDeck
+export default NewCard

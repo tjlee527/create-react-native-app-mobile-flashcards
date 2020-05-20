@@ -8,6 +8,7 @@ import { _addStarterDecks } from './utils/_DATA'
 import NewDeck from './components/NewDeck'
 
 import DeckList from './components/DeckList'
+import NewCard from './components/NewCard'
 
 class App extends Component {
   state = {
@@ -30,7 +31,8 @@ class App extends Component {
       return (
         <View style={styles.container}>
           {/* <DeckList decks={decks}/> */}
-          <NewDeck />
+          {/* <NewDeck /> */}
+          <NewCard title='Practice'/>
         </View>
       )
     }
