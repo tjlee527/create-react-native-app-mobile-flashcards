@@ -35,7 +35,6 @@ class NewCard extends Component {
   }
 
   onSubmit = () => {
-    console.log(this.state)
     // getDecks()
     const { title } = this.props
     addCardToDeck(title, this.state)

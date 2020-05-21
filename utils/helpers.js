@@ -24,7 +24,10 @@ export function getDecks () {
 export function getDeck(id) {
   return AsyncStorage.getItem(ALL_DECKS_KEY)
     .then(JSON.parse)
-    .then((data) => data[id])
+    .then((data) => {
+      // console.log(data[id])
+      return data[id]
+    })
     .catch((err) => console.warn('error getting desks: ', err))
 }
 

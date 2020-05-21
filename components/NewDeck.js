@@ -35,9 +35,6 @@ class NewDeck extends Component {
 
   onSubmit = () => {
     const title = this.state.text
-    // add new Deck
-    // getDecks(title)
-    // clearStorage()
     saveDeckTitle(title)
     // go home
   }
