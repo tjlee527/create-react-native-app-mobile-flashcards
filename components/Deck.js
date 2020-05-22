@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { white, purple, green, gray, darkGray } from '../utils/colors'
+import { white, darkGray } from '../utils/colors'
 import {
   StyleSheet,
   Text,
@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import Button from './Button'
 
+
 class Deck extends Component {
   handleClick = (destination) => {
     this.props.navigation.navigate(
@@ -17,11 +18,11 @@ class Deck extends Component {
     )
   }
 
+
+
   render() {
     const { deck } = this.props
     const emptyDeck = deck.questions ? false : true
-    console.log('deck', emptyDeck)
-    console.log('deck check', deck)
     return (
       <View style={styles.deck}>
         <Text style={styles.title}>{deck.title}</Text>

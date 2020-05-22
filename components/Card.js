@@ -1,54 +1,28 @@
 import React, { Component } from 'react'
-import { white, purple, green, gray, darkGray } from '../utils/colors'
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Platform
-} from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import Button from './Button'
 
-
-
-class Card extends Component {
-  clicked = () => {
-    console.log('clicked')
-  }
-
-  render() {
-    const { toggleFlip, info } = this.props
-
-    return (
-      <View style={styles.deck}>
-        <Text style={styles.title}>{info.question}</Text>
-        <Button onPress={toggleFlip} text={'See Answer'}/>
-      </View>
-    )
-  }
+function Card ({ toggleFlip, info }) {
+  return (
+    <View style={styles.deck}>
+      <Text style={styles.title}>{info.question}</Text>
+      <Button onPress={toggleFlip} text={'See Answer'}/>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
   deck: {
-    width: 250,
-    height: 150,
-    backgroundColor: white,
+    marginTop: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: darkGray,
-    borderRadius: 3,
-    margin: 3,
+    margin: 50,
   },
   title: {
     textAlign: 'center',
     fontSize: 25,
     margin: 5,
-    padding: 5,
-  },
-  description: {
-    color: darkGray,
-    fontSize: 14
+    padding: 25,
   }
 })
 

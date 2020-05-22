@@ -47,12 +47,11 @@ class NewDeck extends Component {
     this.toHome()
   }
 
-
   render() {
     const { text } = this.state
     const displayButton = text.length === 0 ? false : true
     return (
-      <View style={{padding: 10}}>
+      <View style={styles.form}>
         <Text style={styles.heading}>Create A New Deck</Text>
         <TextInput
           style={styles.newDeckForm}
@@ -67,6 +66,9 @@ class NewDeck extends Component {
 }
 
 const styles = StyleSheet.create({
+  form: {
+    margin: 50
+  },
   heading: {
     fontSize: 25,
     alignItems: 'center',
@@ -82,6 +84,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     borderWidth: 2,
     borderColor: gray,
+    marginBottom: 10
   },
 })
 

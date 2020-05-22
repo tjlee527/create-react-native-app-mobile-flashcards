@@ -1,13 +1,7 @@
 import React, { Component } from 'react'
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Platform
-} from 'react-native'
-import { white, purple, green, gray, darkGray } from '../utils/colors'
-import { getDeck } from '../utils/helpers'
+import { StyleSheet, Text, View } from 'react-native'
+import { darkGray } from '../utils/colors'
+import { getDeck, clearLocalNotification, setLocalNotification } from '../utils/helpers'
 import Card from './Card'
 import FlippedCard from './FlippedCard'
 import Button from './Button'
@@ -64,12 +58,16 @@ class Quiz extends Component {
     if (deckLength) {
       const currentQuestion = questions[currentNum]
       if (completed) {
+        clearLocalNotification()
+          .then(setLocalNotification)
         return (
-          <View>
-            <Text>Quiz Completed</Text>
-            <Text>{Math.floor(100 * (correct/deckLength))}%</Text>
-            <Text>Correct: {correct}</Text>
-            <Text>incorrect: {incorrect}</Text>
+          <View style={styles.deck}>
+            <Text style={styles.title}>Quiz Completed</Text>
+            <View style={styles.description}>
+              <Text>{Math.floor(100 * (correct/deckLength))}%</Text>
+              <Text>Correct: {correct}</Text>
+              <Text>Incorrect: {incorrect}</Text>
+            </View>
             <Button
               text={'Restart Quiz'}
               onPress={this.handleQuizRestart}/>
@@ -107,3 +105,22 @@ class Quiz extends Component {
 }
 
 export default Quiz
+
+const styles = StyleSheet.create({
+  deck: {
+    marginTop: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 50,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  description: {
+    textAlign: 'center',
+    color: darkGray,
+    fontSize: 14,
+    padding: 20
+  },
+})

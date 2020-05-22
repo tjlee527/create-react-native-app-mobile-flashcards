@@ -48,7 +48,7 @@ class NewCard extends Component {
     const display = (question && answer) ? true : false
 
     return (
-      <View style={{padding: 10}}>
+      <View style={styles.form}>
         <Text style={styles.heading}>Create A New Question</Text>
         <TextInput
           style={styles.newDeckForm}
@@ -69,6 +69,9 @@ class NewCard extends Component {
 }
 
 const styles = StyleSheet.create({
+  form: {
+    margin: 50
+  },
   heading: {
     fontSize: 25,
     alignItems: 'center',
@@ -84,6 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     borderWidth: 2,
     borderColor: gray,
+    marginBottom: 10
   },
 })
 
