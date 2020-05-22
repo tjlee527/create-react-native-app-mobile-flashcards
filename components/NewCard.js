@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { white, purple, green, gray, darkGray } from '../utils/colors'
 import {
   StyleSheet,
@@ -9,18 +10,9 @@ import {
   TextInput
 } from 'react-native'
 import { saveDeckTitle, getDecks, clearStorage, addCardToDeck } from '../utils/helpers'
-
-function Button( { onPress, text }) {
-  return (
-    <TouchableOpacity
-      style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
-      onPress={onPress}>
-        <Text style={styles.submitBtnText}>Submit</Text>
-    </TouchableOpacity>
-  )
-}
-
-
+import { addCard } from '../actions'
+import Button from './Button'
+import { CommonActions } from '@react-navigation/native';
 
 class NewCard extends Component {
   state = {
@@ -34,10 +26,20 @@ class NewCard extends Component {
     })
   }
 
+  toHome = () => {
+    this.props.navigation.dispatch(
+      CommonActions.goBack({
+        key: 'DeckList',
+      })
+    )
+  }
+
   onSubmit = () => {
-    // getDecks()
-    const { title } = this.props
-    addCardToDeck(title, this.state)
+    const { deck } = this.props.route.params
+    const card = this.state
+    this.props.dispatch(addCard({card, ...deck}))
+    addCardToDeck(deck.title, card)
+    this.toHome()
   }
 
 
@@ -60,7 +62,7 @@ class NewCard extends Component {
           onChangeText={(text) => this.onChange(text, 'answer')}
           defaultValue={this.state.answer}
         />
-        {display && <Button onPress={this.onSubmit}/>}
+        {display && <Button onPress={this.onSubmit} text={'Submit'}/>}
       </View>
     )
   }
@@ -83,34 +85,12 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: gray,
   },
-  iosSubmitBtn: {
-    backgroundColor: green,
-    padding: 8,
-    borderRadius: 7,
-    borderWidth: 2,
-    borderColor: gray,
-    height: 40,
-    width: 120,
-    marginTop: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  androidSubmitBtn: {
-    backgroundColor: purple,
-    padding: 10,
-    paddingLeft: 15,
-    paddingRight: 15,
-    height: 30,
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  submitBtnText: {
-    color: white,
-    fontSize: 16,
-    textAlign: 'center'
-  },
 })
 
-export default NewCard
+function mapStateToProps({ decks }) {
+  return {
+    decks
+  }
+}
+
+export default connect()(NewCard)

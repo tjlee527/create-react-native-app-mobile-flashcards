@@ -10,11 +10,9 @@ export function clearStorage () {
 
 // getDecks: return all of the decks along with their titles, questions, and answers.
 export function getDecks () {
-  // console.log(decks)
   return AsyncStorage.getItem(ALL_DECKS_KEY)
     .then(JSON.parse)
     .then((data) => {
-      console.log(data, 'sdfsdfioejf')
       return data
     })
     .catch((err) => console.warn('error getting desks: ', err))
@@ -25,7 +23,6 @@ export function getDeck(id) {
   return AsyncStorage.getItem(ALL_DECKS_KEY)
     .then(JSON.parse)
     .then((data) => {
-      // console.log(data[id])
       return data[id]
     })
     .catch((err) => console.warn('error getting desks: ', err))
@@ -48,11 +45,9 @@ export function addCardToDeck(title, card) {
   AsyncStorage.getItem(ALL_DECKS_KEY)
     .then(JSON.parse)
     .then((data) => {
-      console.log(data[title])
       const newQs = data[title].questions || []
       newQs.push(card)
       data[title].questions = newQs
-      console.log(data)
       AsyncStorage.mergeItem(ALL_DECKS_KEY, JSON.stringify(data))
     })
 }

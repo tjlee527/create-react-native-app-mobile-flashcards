@@ -10,6 +10,7 @@ import { white, purple, green, gray, darkGray } from '../utils/colors'
 import { getDeck } from '../utils/helpers'
 import Card from './Card'
 import FlippedCard from './FlippedCard'
+import Button from './Button'
 
 
 class Quiz extends Component {
@@ -23,15 +24,22 @@ class Quiz extends Component {
   }
 
   componentDidMount() {
-    const { deck } = this.props
-    getDeck(deck)
-      .then((info) => {
-        const { questions, title } = info
-        this.setState({
-          questions,
-          title
-        })
-      })
+    const { deck } = this.props.route.params
+    const { questions, title } = deck
+    this.setState({
+      questions,
+      title
+    })
+  }
+
+  handleQuizRestart = () => {
+    this.setState({
+      flipped: false,
+      currentNum: 0,
+      incorrect: 0,
+      correct: 0,
+      completed: false
+    })
   }
 
   toggleFlip = () => {
@@ -46,6 +54,7 @@ class Quiz extends Component {
       currentNum: prevState.currentNum + 1,
       completed: prevState.currentNum + 1 === prevState.questions.length
     }))
+    this.toggleFlip()
   }
 
   render() {
@@ -61,6 +70,12 @@ class Quiz extends Component {
             <Text>{Math.floor(100 * (correct/deckLength))}%</Text>
             <Text>Correct: {correct}</Text>
             <Text>incorrect: {incorrect}</Text>
+            <Button
+              text={'Restart Quiz'}
+              onPress={this.handleQuizRestart}/>
+            <Button
+              text={'Back to Deck'}
+              onPress={() => this.props.navigation.goBack()}/>
           </View>
         )
       } else {

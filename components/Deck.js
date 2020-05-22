@@ -7,33 +7,27 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native'
-
-function Button( { onPress, text }) {
-  return (
-    <TouchableOpacity
-      style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
-      onPress={onPress}>
-        <Text style={styles.submitBtnText}>{text}</Text>
-    </TouchableOpacity>
-  )
-}
-
-
+import Button from './Button'
 
 class Deck extends Component {
-  clicked = () => {
-    console.log('clicked')
+  handleClick = (destination) => {
+    this.props.navigation.navigate(
+      destination,
+      { deck: this.props.deck}
+    )
   }
 
   render() {
     const { deck } = this.props
-
+    const emptyDeck = deck.questions ? false : true
+    console.log('deck', emptyDeck)
+    console.log('deck check', deck)
     return (
       <View style={styles.deck}>
         <Text style={styles.title}>{deck.title}</Text>
-        <Text style={styles.description}>{deck.questions.length} cards</Text>
-        <Button onPress={this.clicked} text='Start Quiz'/>
-        <Button onPress={this.clicked} text='Add Card'/>
+        <Text style={styles.description}>{emptyDeck ? 0 : deck.questions.length} cards</Text>
+        {!emptyDeck && <Button onPress={() => this.handleClick('Quiz')} text='Start Quiz'/>}
+        <Button onPress={() => this.handleClick('NewCard')} text='Add Card'/>
       </View>
     )
   }
@@ -58,33 +52,6 @@ const styles = StyleSheet.create({
   description: {
     color: darkGray,
     fontSize: 14
-  },
-  iosSubmitBtn: {
-    backgroundColor: green,
-    padding: 8,
-    borderRadius: 7,
-    borderWidth: 2,
-    borderColor: gray,
-    height: 40,
-    width: 120,
-    marginLeft: 20,
-    marginRight: 20,
-  },
-  androidSubmitBtn: {
-    backgroundColor: purple,
-    padding: 10,
-    paddingLeft: 15,
-    paddingRight: 15,
-    height: 30,
-    borderRadius: 2,
-    alignSelf: 'flex-end',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  submitBtnText: {
-    color: white,
-    fontSize: 16,
-    textAlign: 'center'
   },
 })
 

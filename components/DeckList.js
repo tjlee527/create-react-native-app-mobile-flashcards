@@ -1,57 +1,56 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Deck from './Deck'
-// import { connect } from 'react-redux'
-// import { getDecks } from '../utils/helpers'
-// import { receiveDecks, handleInitialDecks } from '../actions/index'
-// import { _addStarterDecks } from '../utils/_DATA'
+import { getDecks, clearStorage } from '../utils/helpers'
+
+import { connect } from 'react-redux'
+import { handleReceiveDecks } from '../actions/index'
 
 
 
 
 class DeckList extends Component {
   componentDidMount() {
-    // getDecks()
-    //   .then((decks) => {
-    //     console.log('decklist', decks)
-    //     if (decks){
-    //       getAllDecks(decks)
-    //       console.log(this.props)
-    //     }
-    //   })
-
-    // handleInitialDecks()
-
-    // _addStarterDecks()
-    //   .then(() => {
-    //     getDecks()
-    //       .then((decks) => {
-    //         console.log(decks, 'decklist')
-    //         if (decks) {
-    //           getAllDecks(decks)
-    //         } else {
-    //           console.log('deck list empty')
-    //         }
-    //       })
-    //   })
-
+    this.props.dispatch(handleReceiveDecks())
   }
 
   render() {
     const { decks } = this.props
+    if (decks === undefined) {
+      return (
+        <View>
+          <Text>Loading</Text>
+        </View>
+      )
+    }
+
+    const deckArr = Object.keys(decks).map((deck) => decks[deck])
+
     return (
       <View style={styles.container}>
-        {decks.map((deck) => (
-          <Deck style={styles.row} key={deck.title} deck={deck}/>
-        ))}
-      </View>
+      {deckArr.length !== 0
+        ? deckArr.map((deck) => {
+          return (
+            <Deck
+              key={deck.title}
+              style={styles.row}
+              deck={deck}
+              navigation={this.props.navigation}
+            />
+          )
+        })
+        :  <Text>No decks yet, add a new one!</Text>
+      }
+    </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   row: {
     flexDirection: 'row',
@@ -60,17 +59,10 @@ const styles = StyleSheet.create({
   }
 })
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     dispatch,
-//     getAllDecks: receiveDecks
-//   }
-// }
+function mapStateToProps({ decks }) {
+  return {
+    decks
+  }
+}
 
-// function mapStateToProps(decks) {
-//   return {
-//     decks
-//   }
-// }
-
-export default DeckList
+export default connect(mapStateToProps)(DeckList)
