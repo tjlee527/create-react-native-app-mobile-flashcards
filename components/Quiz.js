@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Animated} from 'react-native'
 import { darkGray } from '../utils/colors'
 import { getDeck, clearLocalNotification, setLocalNotification } from '../utils/helpers'
 import Card from './Card'
@@ -14,12 +14,20 @@ class Quiz extends Component {
     incorrect: 0,
     currentNum: 0,
     flipped: false,
-    completed: false
+    completed: false,
+    bounceValue: new Animated.Value(1)
   }
 
   componentDidMount() {
     const { deck } = this.props.route.params
     const { questions, title } = deck
+    const { bounceValue } = this.state
+
+    Animated.sequence([
+      Animated.timing(bounceValue, { duration: 200, toValue: 1.05}),
+      Animated.spring(bounceValue, { toValue: 1, friction: 4})
+    ]).start()
+
     this.setState({
       questions,
       title
@@ -32,7 +40,7 @@ class Quiz extends Component {
       currentNum: 0,
       incorrect: 0,
       correct: 0,
-      completed: false
+      completed: false,
     })
   }
 
@@ -52,7 +60,7 @@ class Quiz extends Component {
   }
 
   render() {
-    const { questions, correct, incorrect, currentNum, flipped, completed } = this.state
+    const { questions, correct, incorrect, currentNum, flipped, completed, title, bounceValue } = this.state
     const deckLength = questions.length
 
     if (deckLength) {
@@ -79,16 +87,21 @@ class Quiz extends Component {
       } else {
         return (
           <View>
-            <Text>{`${currentNum + 1}/${deckLength}`}</Text>
+            <Text style={styles.title}>Deck: {title}</Text>
+            <Text style={styles.description}>{`${currentNum + 1}/${deckLength}`}</Text>
             {flipped
             ? <FlippedCard
                 info={currentQuestion}
                 handleAnswer={this.handleAnswer}
               />
-          : <Card
-              info={currentQuestion}
-              toggleFlip={this.toggleFlip}
-            />
+          : <Animated.View
+              style={[styles.title, {transform: [{scale: bounceValue}]}]}>
+              <Card
+                info={currentQuestion}
+                toggleFlip={this.toggleFlip}
+              />
+            </Animated.View>
+
           }
           </View>
         )
@@ -114,6 +127,7 @@ const styles = StyleSheet.create({
     margin: 50,
   },
   title: {
+    marginTop: 20,
     textAlign: 'center',
     fontSize: 20,
   },
@@ -121,6 +135,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: darkGray,
     fontSize: 14,
-    padding: 20
+    padding: 20,
+    textAlign: 'center'
   },
 })

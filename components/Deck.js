@@ -5,7 +5,8 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Platform
+  Platform,
+  Animated
 } from 'react-native'
 import Button from './Button'
 
@@ -18,11 +19,10 @@ class Deck extends Component {
     )
   }
 
-
-
   render() {
     const { deck } = this.props
     const emptyDeck = deck.questions ? false : true
+
     return (
       <View style={styles.deck}>
         <Text style={styles.title}>{deck.title}</Text>

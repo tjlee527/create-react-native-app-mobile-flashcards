@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Button from './Button'
 
-function Card ({ toggleFlip, info }) {
+function Card ({ toggleFlip, info, style }) {
   return (
-    <View style={styles.deck}>
+    <View style={[styles.deck, style]}>
       <Text style={styles.title}>{info.question}</Text>
       <Button onPress={toggleFlip} text={'See Answer'}/>
     </View>
