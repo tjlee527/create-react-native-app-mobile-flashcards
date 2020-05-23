@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import { white, purple, green, gray, darkGray } from '../utils/colors'
+import { gray } from '../utils/colors'
 import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Platform,
   TextInput
 } from 'react-native'
-import { saveDeckTitle, getDecks, clearStorage } from '../utils/helpers'
+import { saveDeckTitle } from '../utils/helpers'
 import { addDeck } from '../actions'
 import { connect } from 'react-redux'
 import Button from './Button'
-import {CommonActions} from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 
 
 
@@ -30,8 +28,8 @@ class NewDeck extends Component {
 
   toHome = () => {
     this.props.navigation.dispatch(
-      CommonActions.goBack({
-        key: 'DeckList',
+       .goBack({
+         key: 'DeckList',
       })
     )
   }

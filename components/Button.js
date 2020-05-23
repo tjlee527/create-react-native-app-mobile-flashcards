@@ -3,7 +3,6 @@ import { white, purple, green, gray } from '../utils/colors'
 import {
   StyleSheet,
   Text,
-  View,
   TouchableOpacity,
   Platform
 } from 'react-native'

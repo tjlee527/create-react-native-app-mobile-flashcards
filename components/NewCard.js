@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { white, purple, green, gray, darkGray } from '../utils/colors'
+import { white, gray } from '../utils/colors'
 import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  Platform,
   TextInput
 } from 'react-native'
-import { saveDeckTitle, getDecks, clearStorage, addCardToDeck } from '../utils/helpers'
+import { addCardToDeck } from '../utils/helpers'
 import { addCard } from '../actions'
 import Button from './Button'
 import { CommonActions } from '@react-navigation/native';

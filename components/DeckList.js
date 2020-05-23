@@ -20,6 +20,7 @@ class DeckList extends Component {
     }
 
     const deckArr = Object.keys(decks).map((deck) => decks[deck])
+
     return (
       <View style={styles.container}>
       {deckArr.length !== 0
