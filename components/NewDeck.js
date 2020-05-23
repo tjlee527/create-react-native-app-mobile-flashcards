@@ -28,7 +28,7 @@ class NewDeck extends Component {
 
   toHome = () => {
     this.props.navigation.dispatch(
-       .goBack({
+      CommonActions.goBack({
          key: 'DeckList',
       })
     )
