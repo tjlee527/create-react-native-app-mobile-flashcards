@@ -23,6 +23,7 @@ import NewDeck from './components/NewDeck'
 import DeckList from './components/DeckList'
 import NewCard from './components/NewCard'
 import Quiz from './components/Quiz'
+import Deck from './components/Deck'
 
 
 
@@ -105,7 +106,14 @@ const MainNav = (props) => {
           headerTintColor: white,
           headerStyle: { backgroundColor: green }
         }}/>
-    </Stack.Navigator>
+      <Stack.Screen
+        name='ViewDeck'
+        component={Deck}
+        options={{
+          headerTintColor: white,
+          headerStyle: { backgroundColor: green }
+        }}/>
+  </Stack.Navigator>
   )
 }
 

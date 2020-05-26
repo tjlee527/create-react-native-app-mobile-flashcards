@@ -1,6 +1,6 @@
 # Would You Rather
 
-This is a Flashcard App that helps you to study. You can add a decks, and a new flaschcard to the decks that contains both a question and answer. Once a deck contains a flashcard, you can test yourself by taking a quiz. Once you finish the quiz, you will see your score and you have a chace to restart the quiz or go back to a list of all your decks.
+This is a Mobile Flashcard App that helps you to study. You can add a decks, and a new flaschcard to the decks that contains both a question and answer. Once a deck contains a flashcard, you can test yourself by taking a quiz. Once you finish the quiz, you will see your score and you have a chace to restart the quiz or go back to a list of all your decks.
 
 This App is made to correctly function for iOS devices.
 

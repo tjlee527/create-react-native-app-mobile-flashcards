@@ -33,7 +33,8 @@ class NewCard extends Component {
   }
 
   onSubmit = () => {
-    const { deck } = this.props.route.params
+    const { title } = this.props.route.params
+    const deck = this.props.decks[title]
     const card = this.state
     this.props.dispatch(addCard({card, ...deck}))
     addCardToDeck(deck.title, card)
@@ -95,4 +96,4 @@ function mapStateToProps({ decks }) {
   }
 }
 
-export default connect()(NewCard)
+export default connect(mapStateToProps)(NewCard)

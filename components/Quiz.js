@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet, Text, View, Animated} from 'react-native'
 import { darkGray } from '../utils/colors'
 import { getDeck, clearLocalNotification, setLocalNotification } from '../utils/helpers'
@@ -19,8 +20,9 @@ class Quiz extends Component {
   }
 
   componentDidMount() {
-    const { deck } = this.props.route.params
-    const { questions, title } = deck
+    const { title } = this.props.route.params
+    const deck = this.props.decks[title]
+    const { questions } = deck
     const { bounceValue } = this.state
 
     Animated.sequence([
@@ -117,7 +119,14 @@ class Quiz extends Component {
   }
 }
 
-export default Quiz
+function mapStateToProps({ decks }) {
+  return {
+    decks
+  }
+}
+
+export default connect(mapStateToProps)(Quiz)
+
 
 const styles = StyleSheet.create({
   deck: {
