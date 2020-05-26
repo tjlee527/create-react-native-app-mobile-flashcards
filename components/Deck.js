@@ -26,12 +26,17 @@ class Deck extends Component {
     ]).start()
   }
 
-  handleClick = (destination) => {
+  handleClick = (destination, emptyDeck) => {
     const { route, navigation } = this.props
-    navigation.navigate(
-      destination,
-      { title: route.params.title }
-    )
+    if (!emptyDeck) {
+      navigation.navigate(
+        destination,
+        { title: route.params.title }
+      )
+    } else {
+      alert('No cards yet')
+    }
+
   }
 
   render() {
@@ -40,12 +45,11 @@ class Deck extends Component {
     const { bounceValue } = this.state
     const emptyDeck = deck.questions ? false : true
 
-
     return (
       <Animated.View style={[styles.deck, {transform: [{scale: bounceValue}]}]}>
         <Text style={styles.title}>{deck.title}</Text>
         <Text style={styles.description}>{emptyDeck ? 0 : deck.questions.length} cards</Text>
-        {!emptyDeck && <Button onPress={() => this.handleClick('Quiz')} text='Start Quiz'/>}
+        <Button onPress={() => this.handleClick('Quiz', emptyDeck)} text='Start Quiz'/>
         <Button onPress={() => this.handleClick('NewCard')} text='Add Card'/>
       </Animated.View>
     )
