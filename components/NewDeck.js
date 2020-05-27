@@ -26,11 +26,10 @@ class NewDeck extends Component {
     })
   }
 
-  toHome = () => {
-    this.props.navigation.dispatch(
-      CommonActions.goBack({
-         key: 'DeckList',
-      })
+  toDeck = (title) => {
+    this.props.navigation.navigate(
+      'ViewDeck',
+      { title: title}
     )
   }
 
@@ -42,7 +41,7 @@ class NewDeck extends Component {
     this.setState({
       text: ''
     })
-    this.toHome()
+    this.toDeck(title)
   }
 
   render() {

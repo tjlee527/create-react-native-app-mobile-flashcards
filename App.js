@@ -82,7 +82,7 @@ const MainNav = (props) => {
   return (
     <Stack.Navigator headerMode='screen'>
       <Stack.Screen
-        name="Home"
+        name="Back"
         component={TabsNav}
         options={{headerShown: false}}/>
       <Stack.Screen
